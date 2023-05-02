@@ -1,0 +1,99 @@
+#include <iostream>
+#include <conio.h>
+#include <cstdlib>
+#include <stdio.h>
+#include <cstring>
+
+using namespace std;
+
+void registrar(int n[], int t){
+	string nombres[t];
+    int mesa[t];
+    const int MAX_PRECIOS = 100;
+    int precios[t][MAX_PRECIOS];
+    int cantidades[t];
+    float suma[t];
+    float suma_elementos[t];
+	cin.ignore();
+	for(int i = 0; i < t; i++) {
+    cout << "Digite el nombre para la posicion [" << i << "]: " << endl;
+	getline(cin,nombres[i]);
+	}
+	
+	for (int i = 0; i < t; i++) {
+    cout << "Ingrese el numero de la mesa " << i << ": ";
+    cin >> mesa[i];
+	}
+	
+	for (int i = 0; i < t; i++) {
+        float precio;
+        int contador = 0;
+
+        do {
+            cout << "Ingresa un precio para la posicion " << i << ", elemento " << contador << " (0 para terminar): ";
+            cin >> precio;
+
+            if (precio != 0) {
+                precios[i][contador] = precio; // agregamos el precio al arreglo correspondiente
+                suma[i] += precio; // sumamos el precio a la suma de precios de este elemento
+                contador++;
+            }
+        } while (precio != 0 && contador < MAX_PRECIOS);
+
+        cantidades[i] = contador; // actualizamos la cantidad de precios ingresados para este elemento
+   		suma_elementos[i] = suma[i];
+    }
+    
+    cout << "Los precios ingresados son: " << endl;
+    for (int i = 0; i < t; i++) {
+        cout << "Para el cliente " << nombres[i] << " tiene estos precios: ";
+        float suma_elemento = 0;
+        for (int j = 0; j < cantidades[i]; j++) {
+            cout << precios[i][j] << " \n";
+            suma_elemento += precios[i][j];
+        }
+    }
+    
+getche();
+}
+
+void mostrar(int n[], int t){
+getche();	
+}
+
+int main(){
+	int n[] = {}, opc, t;
+	
+	cout<<"Indique el tamaño del array deseado: "<<endl;
+	cin>>t;
+	
+	do{
+		system("cls");
+		cout<<"1. Registrar cliente(nombre, mesa, pedidos parciales)"<<endl;
+		cout<<"2. Mostrar todos los clientes(nombre, mesa, total_pagar)"<<endl;
+		cout<<"3. Buscar por numero de mesa(nombre, total_pagar)"<<endl;
+		cout<<"4. Mostrar datos del cliente con el mayor valor a pagar"<<endl;
+		cout<<"5. Mostrar datos del cliente con el menor valor a pagar"<<endl;
+		cout<<"6. Salir"<<endl;
+		cin>>opc;
+		system("cls");
+		switch(opc){
+			
+			case 1:
+				cout<<"Ingresa los nombres de los clientes, la mesa y sus pedidos: "<<endl;
+				for(int i=0; i<t; i++){
+				n[i]=0;
+				}
+				registrar(n,t);
+				system("pause");
+				break;
+				
+			case 2:
+				mostrar(n,t);
+				system("pause");
+				break;
+		
+		}
+	}while(opc!=6);
+	return 0;
+}
